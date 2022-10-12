@@ -8,7 +8,6 @@ W = 0.225
 M = 44.01
 
 fluid = PengRobinson(Tc, Pc, W)
-print(fluid.__dict__)
 
 # density_300 at T = 300
 

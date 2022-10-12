@@ -2,7 +2,12 @@ import numpy as np
 from cubiceq import cubiceq
 
 from scipy.optimize import fsolve
-from numba import jit
+
+'''
+Peng Robinson EOS.
+Example of creating an object:
+fluid = PengRobinson(Tc, Pc, W)
+'''
 
 
 class PengRobinson:
@@ -32,6 +37,13 @@ class PengRobinson:
         return self.bc * p / (self.R * T)
 
     def density_calc(self, p, T):
+        """
+        Function to calculate density at the given temperature
+        :param p: numpy array/constant - values of pressure
+        :param T: constant - value of temperature
+        :return: numpy array - values of density
+        Example: density_T = fluid.density_calc(P, T)
+        """
         # calculating density_300
         alpha = self.alpha_calc(T)
         a = self.a_calc(alpha)
@@ -41,6 +53,14 @@ class PengRobinson:
         return p / (self.R * T * Z)
 
     def pressure_calc(self, p, T):
+        """
+        Function to calculate saturated steam pressure
+        :param p: numpy array - values of pressure (initial guess)
+        :param T: numpy array - values of T
+        :return: numpy array - values of saturated steam pressure
+        Example: root1 = fluid.pressure_calc(P, T)
+        """
+
         def f(p_opt, T_opt):
             alpha = self.alpha_calc(T_opt)
             a = self.a_calc(alpha)
