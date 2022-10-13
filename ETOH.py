@@ -58,7 +58,7 @@ n = 100
 
 # 1st part
 T_0_1 = np.linspace(318, 350, num=n)
-P_0_1 = np.linspace(0.020, 0.095, num=100)
+P_0_1 = np.linspace(0.020, 0.095, num=n)
 root1 = fluid.pressure_calc(P_0_1, T_0_1)
 
 # 2nd part
@@ -67,8 +67,8 @@ P_0_2 = np.linspace(0.095, 1.1, num=n)
 root2 = fluid.pressure_calc(P_0_2, T_0_2)
 
 # 3rd part
-T_0_3 = np.linspace(425, 475, num=100)
-P_0_3 = np.linspace(1.1, 3.1, num=100)
+T_0_3 = np.linspace(425, 475, num=n)
+P_0_3 = np.linspace(1.1, 3.1, num=n)
 root3 = fluid.pressure_calc(P_0_3, T_0_3)
 
 # 4th part
