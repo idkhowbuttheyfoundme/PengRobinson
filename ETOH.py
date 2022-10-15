@@ -59,7 +59,8 @@ n = 100
 # 1st part
 T_0_1 = np.linspace(318, 350, num=n)
 P_0_1 = np.linspace(0.020, 0.095, num=n)
-root1 = fluid.pressure_calc(P_0_1, T_0_1)
+root1 = fluid.pressure_calc_roots(P_0_1, T_0_1)
+
 
 # 2nd part
 T_0_2 = np.linspace(350, 425, num=n)
@@ -81,7 +82,7 @@ T_0_5 = np.linspace(508, 516, num=100)
 P_0_5 = np.linspace(5.55, 6.38, num=100)
 root5 = fluid.pressure_calc(P_0_5, T_0_5)
 
-T_sat = np.concatenate((T_0_1, T_0_2, T_0_3, T_0_4, T_0_5))
+T_sat = np.concatenate((T_0_1, T_0_2, T_0_3, T_0_4, T_0_5), dtype=object)
 p_sat = np.concatenate((root1, root2, root3, root4, root5))
 
 data_mousa = np.array([

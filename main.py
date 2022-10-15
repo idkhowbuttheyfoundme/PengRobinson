@@ -54,7 +54,7 @@ class PengRobinson:
 
     def pressure_calc(self, p, T):
         """
-        Function to calculate saturated steam pressure
+        Function to calculate saturated steam pressure using cubiceq
         :param p: numpy array - values of pressure (initial guess)
         :param T: numpy array - values of T
         :return: numpy array - values of saturated steam pressure
@@ -74,3 +74,37 @@ class PengRobinson:
                         np.log((Zv + 2.414 * B) / (Zv - 0.414 * B)) - np.log((Zl + 2.414 * B) / (Zl - 0.414 * B)))
 
         return fsolve(f, p, T)
+
+    def pressure_calc_roots(self, p0, T0):
+        """
+        Function to calculate saturated steam pressure using roots
+        :param p0: numpy array - values of pressure (initial guess)
+        :param T0: numpy array - values of T
+        :return: numpy array - values of saturated steam pressure
+        Example: root1 = fluid.pressure_calc_roots(P, T)
+        """
+        def f(p_opt, T_opt):
+            alpha = self.alpha_calc(T_opt)
+            a = self.a_calc(alpha)
+            A, B = self.A_calc(a, p_opt, T_opt), self.B_calc(p_opt, T_opt)
+            # print(A,B)
+            coeffs = np.array([1, - (1 - B), A - 3 * B ** 2 - 2 * B, - (A * B - B ** 2 - B ** 3)], dtype=object)
+            Z = np.roots(coeffs)
+            # print(Z)
+            # Z = list(map(lambda y: y.real, filter(lambda x: x.imag == 0, Z)))
+            Z[~ (np.imag(Z) == 0)] = np.NaN
+            Z = np.real(Z)
+            Z[Z < 0] = np.NaN
+            Zv = np.nanmax(Z)
+            Zl = np.nanmin(Z)
+            return \
+                Zv - Zl - np.log(Zv - B) + np.log(Zl - B) \
+                - A / (2 * np.sqrt(2) * B) * (
+                        np.log((Zv + 2.414 * B) / (Zv - 0.414 * B)) - np.log((Zl + 2.414 * B) / (Zl - 0.414 * B)))
+
+        p_sat = []
+        for p, T in zip(p0, T0):
+            root = fsolve(f, p, T)
+            p_sat.append(root)
+
+        return (np.array(p_sat, dtype=object)).flatten()
