@@ -55,8 +55,8 @@ data_tochigi[:, 1] = data_tochigi[:, 1] / 1000
 
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.plot(data_tochigi[:, 0], data_tochigi[:, 1], 'o', label='tochigi 1999')
-ax.plot(T_sat, p_sat)
+ax.plot(data_tochigi[:, 0], data_tochigi[:, 1], 'o', label='tochigi-1999')
+ax.plot(T_sat, p_sat, color='k', label='comp')
 ax.set(xlabel='T, K', ylabel='p, MPa')
 ax.legend()
 plt.legend(frameon=True)

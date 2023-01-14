@@ -53,11 +53,11 @@ plt.style.use('seaborn-whitegrid')
 fig, ax = plt.subplots()
 data[:, 0] = data[:, 0] / M
 data_1[:, 0] = data_1[:, 0] / M
-ax.plot(data[:, 1], data[:, 0], '*', color='b', label='klimeck-2001')
-ax.plot(P, density_300, label='T = 300K', color='b')
+ax.plot(data[:, 1], data[:, 0], '*', color='b', label='klimeck-2001, T = 300K')
+ax.plot(P, density_300, label='comp, T = 300K', color='b')
 
-ax.plot(data_1[:, 1], data_1[:, 0], 'o', color='g', label='klimeck-2001')
-ax.plot(P_1, density_360, label='T = 360K', color='g')
+ax.plot(data_1[:, 1], data_1[:, 0], 'o', color='g', label='klimeck-2001, T = 360K')
+ax.plot(P_1, density_360, label='comp, T = 360K', color='g')
 
 ax.set(xlabel='p, MPa', ylabel='ρ, mol\l')
 ax.legend()
