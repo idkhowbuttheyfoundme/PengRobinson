@@ -40,11 +40,11 @@ data_agieienko[:, 1] = data_agieienko[:, 1] / M
 data_yue[:, 1] = data_yue[:, 1] * 1000 / M
 plt.style.use('seaborn')
 fig, ax = plt.subplots()
-ax.plot(data_agieienko[:, 1], data_agieienko[:, 0], '*', label='agienko-2020')
-ax.plot(data_yue[:, 1], data_yue[:, 0], 'o', label='yue-2018')
-ax.plot(density, T, color='k', label='comp')
+ax.plot(data_agieienko[:, 0], data_agieienko[:, 1], '*', label='agienko-2020')
+ax.plot(data_yue[:, 0], data_yue[:, 1], 'o', label='yue-2018')
+ax.plot(T, density, color='k', label='comp')
 
-ax.set(ylabel='T, K', xlabel='ρ, mol\l')
+ax.set(xlabel='T, K', ylabel='ρ, mol\l')
 ax.legend()
 plt.legend(frameon=True)
 # pressure
